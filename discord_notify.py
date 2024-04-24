@@ -44,7 +44,7 @@ if __name__ == "__main__":
     webhook = DiscordWebhook( url = discord_webhook_url, content = msg )
     execute = webhook.execute()
     if execute.status_code != 200:
-        print( "discord webhook網址錯誤，請按照README.md將網址放進.env當中" )
+        print( "discord webhook網址錯誤，請按照README.md說明將網址放進.env當中" )
         time.sleep( 10 )
         exit()
 
@@ -77,7 +77,7 @@ if __name__ == "__main__":
 
                 # 代表地震報告還未產生 先等候一段時間再抓取
                 if now_id == last_id:
-                    print( f"地震報告尚未發布，{wait_seconds}秒後再抓取一次\n" )
+                    print( f"地震報告尚未發布，{wait_seconds}秒後會再自動抓取一次\n" )
                     time.sleep( wait_seconds )
                 # 新的報告已產生
                 else:
