@@ -1,4 +1,4 @@
-# Taiwan_discord_earthquake_notify
+# 地震通知程式 搭配地牛Wake Up以及中央氣象署api
 一個簡易的地震通知程式
 配合地牛wake up，在收到地震預警後將訊息傳送到Discord，並在該地震的報告產生後也傳到Discord當中
 
@@ -14,7 +14,7 @@
    - os
    - discord_webhook
    - python_dotenv
-3. 將discord_webhook的網址以及中央氣象屬的api還有城市資訊放進`.env`檔裡面
+3. 將discord_webhook的網址以及中央氣象署的api還有城市資訊放進`.env`檔裡面
    ```py
    discord_webhook_url = https://discord.com/api/webhooks/.....
    earthquake_api = https://opendata.cwa.gov.tw/api/v1/rest/datastore/...
