@@ -5,12 +5,6 @@ import os
 from dotenv import load_dotenv
 from discord_webhook import DiscordWebhook, DiscordEmbed
 
-# discord webhook
-discord_webhook_url = ""
-
-# 氣象資料開放平台api
-earthquake_data_url = ""
-
 # 總等待秒數會是 wait_time * wait_seconds
 # 有感地震發生後 等候地震報告的次數
 wait_time = 30
