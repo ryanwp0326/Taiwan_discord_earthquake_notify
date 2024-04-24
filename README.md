@@ -17,7 +17,7 @@
 3. 將discord_webhook的網址以及中央氣象署的api還有城市資訊放進`.env`檔裡面
    ```py
    discord_webhook_url = https://discord.com/api/webhooks/.....
-   earthquake_api = 金鑰號碼
+   earthquake_api = CWB-...
    city = 花蓮縣
    area = 花蓮市
    ```
