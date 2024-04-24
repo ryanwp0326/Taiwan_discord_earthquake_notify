@@ -43,6 +43,10 @@ if __name__ == "__main__":
     msg = f"{city}{area}預估震度：{ magnitude }級地震\n到達時間：{ second }秒"
     webhook = DiscordWebhook( url = discord_webhook_url, content = msg )
     execute = webhook.execute()
+    if execute.status_code != 200:
+        print( "discord webhook網址錯誤，請按照README.md將網址放進.env當中" )
+        time.sleep( 10 )
+        exit()
 
     # 更新檔案中的上個地震id
     response = requests.get( earthquake_data_url )
@@ -52,6 +56,10 @@ if __name__ == "__main__":
             now_data = data["records"]["Earthquake"][0]
             now_id = now_data["EarthquakeNo"]
             write_last_num( now_id )
+    else:
+        print( "中央氣象署金鑰錯誤，請按照README.md的說明將金鑰放進.env當中" )
+        time.sleep( 10 )
+        exit()
 
     # 在新報告產生前 拿取上次地震的id
     last_id = get_last_num()
