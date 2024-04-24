@@ -24,7 +24,7 @@
    * discord_webhook在伺服器->整合->Webhook可以建立 並且他只會傳送訊息到指定的文字頻道
    ![image](https://github.com/judeabc20221/Taiwan_discord_earthquake_notify/assets/67894118/6c8bea43-4c3e-4c4a-9cc5-f76dce66c1e1)
 
-   * 中央氣象署註冊網址：https://pweb.cwa.gov.tw/emember/register/authorization\n
+   * 中央氣象署註冊網址：https://pweb.cwa.gov.tw/emember/register/authorization
    * 註冊後從這裡登入：https://opendata.cwa.gov.tw/userLogin
      - 點擊取得授取碼即可拿到api金鑰
 
