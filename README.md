@@ -1,2 +1,5 @@
 # Taiwan_discord_earthquake_notify
 配合地牛wake up，在收到地震預警後將訊息傳送到Discord，並在該地震的報告產生後也傳到Discord當中
+
+使用Discord Webhook，在地震將要發生時傳預警訊息到Discord文字頻道
+之後再透過中央氣象屬提供的api來將該次地震報告傳送
