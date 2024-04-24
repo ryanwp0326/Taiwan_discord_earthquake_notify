@@ -34,7 +34,7 @@ if __name__ == "__main__":
     discord_webhook_url = os.getenv( "discord_webhook_url" )
     # 氣象資料開放平台api
     earthquake_data_url = os.getenv( "earthquake_api" )
-    earthquake_data_url = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/E-A0015-001?Authorization=" + earthQuake_data_url + "&limit=10&format=JSON"
+    earthquake_data_url = "https://opendata.cwa.gov.tw/api/v1/rest/datastore/E-A0015-001?Authorization=" + earthquake_data_url + "&limit=10&format=JSON"
     city = os.getenv( "city" )
     area = os.getenv( "area" )
 
