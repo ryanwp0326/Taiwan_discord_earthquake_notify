@@ -12,6 +12,9 @@
    - requests
    - time
    - os
+   - io
+   - datetime
+   - discord
    - discord_webhook
    - python_dotenv
 3. 將discord_webhook的網址以及中央氣象署的api還有城市資訊放進`.env`檔裡面
