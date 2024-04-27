@@ -37,4 +37,5 @@
 5. 設定地牛wake up發生地震時執行`notify.bat`，並且僅執行一次建議打開
 
 ## 執行成果
-![image](https://github.com/judeabc20221/Taiwan_discord_earthquake_notify/assets/67894118/c7d3f142-12ee-4280-a04d-5ac0ca89e0e8)
+![image](https://github.com/judeabc20221/Taiwan_discord_earthquake_notify/assets/67894118/37f721d2-1b52-471d-9c5f-7f7ba24bf211)
+
