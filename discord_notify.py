@@ -2,8 +2,11 @@ import sys
 import requests
 import time
 import os
+import io
+import discord
 from dotenv import load_dotenv
 from discord_webhook import DiscordWebhook, DiscordEmbed
+from datetime import datetime
 
 # 總等待秒數會是 wait_time * wait_seconds
 # 有感地震發生後 等候地震報告的次數
@@ -28,6 +31,7 @@ def write_last_num( id: int ):
     except Exception as e:
         return None
 
+
 if __name__ == "__main__":
     load_dotenv()
     # discord webhook
@@ -40,7 +44,7 @@ if __name__ == "__main__":
 
     magnitude = str( sys.argv[1] ).replace( "+", "強" ).replace( "-", "弱" )
     second = str( sys.argv[2] )
-    msg = f"{city}{area}預估震度：{ magnitude }級地震\n到達時間：{ second }秒"
+    msg = f"{city}預估震度：{ magnitude }級地震\n到達時間：{ second }秒"
     webhook = DiscordWebhook( url = discord_webhook_url, content = msg )
     execute = webhook.execute()
     if execute.status_code != 200:
@@ -81,14 +85,45 @@ if __name__ == "__main__":
                     time.sleep( wait_seconds )
                 # 新的報告已產生
                 else:
+                    print( "檢測到新地震報告 開始收集相關資訊" )
+                    webhook = DiscordWebhook( url = discord_webhook_url )
                     embed = DiscordEmbed(
                         title = "地震報告",
                         description = now_data["ReportContent"],
-                        color = 1940253,
+                        color = 1940253
                     )
-                    embed.set_image( url = now_data["ReportImageURI"] )
-                    embed.set_author( name = "地震速報", icon_url = "https://i.imgur.com/6I4Z7Rq.png" )
-                    webhook = DiscordWebhook( url = discord_webhook_url )
+                    print( "開始下載地震報告圖檔" )
+                    image = requests.get( now_data["ReportImageURI"] )
+
+                    if image.status_code != 200 :
+                        print( "圖片獲取失敗 不傳送圖檔" )
+                    else:
+                        try:
+                            with open( f"lastest_report.png", "wb" ) as image_file:
+                                image_file.write( image.content )
+                            embed.set_image( url = "attachment://lastest_report.png" )
+                            webhook.add_file( image.content, filename = "lastest_report.png" )
+                            print( "圖片下載成功" )
+                        except Exception as e:
+                            print( "圖片下載失敗 不傳送圖檔" )
+                            print( "錯誤訊息：" )
+                            print( e )
+                    embed.set_footer( text = "地震速報", icon_url = "https://i.imgur.com/6I4Z7Rq.png" )
+
+                    # 新增地震的時間規模 深度 震央
+                    info = now_data["EarthquakeInfo"]
+                    origin_time = datetime.strptime( info["OriginTime"], "%Y-%m-%d %H:%M:%S" )
+                    # 提取每個數字
+                    year = origin_time.year
+                    month = origin_time.month
+                    day = origin_time.day
+                    hour = origin_time.hour
+                    minute = origin_time.minute
+                    second = origin_time.second
+                    embed.add_embed_field( name = "發生時間", value = f"{year}年{month}月{day}日 {hour}點{minute}分{second}秒", inline = False )
+                    embed.add_embed_field( name = "規模", value = f"`{ info['EarthquakeMagnitude']['MagnitudeValue'] }`", inline = True )
+                    embed.add_embed_field( name = "深度", value = f"`{ info['FocalDepth'] }`公里", inline = True )
+                    embed.add_embed_field( name = "震央", value = f"{ info['Epicenter']['Location'].replace( '  ', '``' ) } ", inline = False )
                     webhook.add_embed( embed )
                     execute = webhook.execute()
                     write_last_num( now_id )
